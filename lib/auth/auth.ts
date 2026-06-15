@@ -54,11 +54,11 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        // Retornar apenas os campos que o NextAuth espera
         return {
           id: usuario.id,
           email: usuario.email,
           name: usuario.nome,
-          tipo: usuario.tipo,
         };
       }
     })
@@ -66,15 +66,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.tipo = user.tipo;
+        // Buscar o tipo do usuário fixo
+        const usuario = usuariosFixos.find(u => u.email === user.email);
+        token.tipo = usuario?.tipo || "fiel";
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.tipo = token.tipo;
-        session.user.id = token.id;
+        session.user.tipo = token.tipo as string;
+        session.user.id = token.id as string;
       }
       return session;
     }

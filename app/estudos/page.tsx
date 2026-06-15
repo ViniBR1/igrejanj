@@ -32,9 +32,14 @@ export default function EstudosPage() {
       const data = await response.json();
       setEstudos(data);
       
-      // Extrair categorias únicas
-      const cats = [...new Set(data.map((e: Estudo) => e.categoria).filter(Boolean))];
-      setCategorias(cats);
+      // Extrair categorias únicas - versão compatível com TypeScript
+      const categoriasUnicas: string[] = [];
+      data.forEach((e: Estudo) => {
+        if (e.categoria && !categoriasUnicas.includes(e.categoria)) {
+          categoriasUnicas.push(e.categoria);
+        }
+      });
+      setCategorias(categoriasUnicas);
     } catch (error) {
       toast.error('Erro ao carregar estudos');
     } finally {

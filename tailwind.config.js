@@ -11,6 +11,7 @@ module.exports = {
         'igreja': {
           'roxo': '#6B1D96',
           'ouro': '#FFD700',
+          'verde': '#2E7D32',
         }
       },
     },

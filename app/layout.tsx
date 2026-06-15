@@ -31,7 +31,6 @@ export default function RootLayout({
                 </Link>
                 <nav className="hidden md:flex gap-6">
                   <Link href="/" className="hover:text-yellow-300 transition">Início</Link>
-                  <Link href="/eventos" className="hover:text-yellow-300 transition">Eventos</Link>
                   <Link href="/loja" className="hover:text-yellow-300 transition flex items-center gap-1">
                     <ShoppingBag className="w-4 h-4" />
                     Loja
