@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cores personalizadas - Preto e Branco */
+:root {
+  --primary: #000000;
+  --primary-dark: #111111;
+  --secondary: #333333;
+  --accent: #ffffff;
+  --background: #ffffff;
+  --text: #1a1a1a;
+  --text-light: #666666;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+/* Botão principal preto */
+.btn-primary {
+  @apply bg-black text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-800 transition-all transform hover:scale-105;
+}
+
+/* Botão secundário branco com borda preta */
+.btn-secondary {
+  @apply border-2 border-black text-black px-6 py-2 rounded-lg font-semibold hover:bg-black hover:text-white transition-all;
+}
+
+/* Cards */
+.card {
+  @apply bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200;
+}
+
+/* Container */
+.container-custom {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Carrossel */
 .embla {
   overflow: hidden;
 }
@@ -23,6 +60,7 @@
   }
 }
 
+/* Utilidades */
 .line-clamp-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -35,7 +73,14 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
+/* Animações */
 @keyframes fade-in {
   from {
     opacity: 0;

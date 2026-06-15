@@ -8,11 +8,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'igreja': {
-          'roxo': '#6B1D96',
-          'ouro': '#FFD700',
-          'verde': '#2E7D32',
-        }
+        'primary': '#000000',
+        'primary-dark': '#111111',
+        'secondary': '#333333',
       },
     },
   },

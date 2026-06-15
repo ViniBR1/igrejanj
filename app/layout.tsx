@@ -4,7 +4,7 @@ import AuthProvider from '@/components/AuthProvider';
 import { Toaster } from 'react-hot-toast';
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
-import { Church, ShoppingBag } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,23 +22,23 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={inter.className}>
         <AuthProvider>
-          <header className="bg-purple-700 text-white shadow-lg sticky top-0 z-50">
+          <header className="bg-black text-white shadow-lg sticky top-0 z-50">
             <div className="container mx-auto px-4 py-4">
               <div className="flex justify-between items-center">
-                <Link href="/" className="flex items-center gap-2">
-                  <Church className="w-8 h-8" />
-                  <span className="text-xl font-bold">Igreja Nova Jerusalém</span>
+                {/* Logo */}
+                <Link href="/" className="flex items-center gap-3">
+                  <Logo className="w-10 h-10" />
+                  <span className="text-xl font-bold tracking-tight hidden sm:inline">Igreja Nova Jerusalém</span>
                 </Link>
+                
+                {/* Menu Desktop */}
                 <nav className="hidden md:flex gap-6">
-                  <Link href="/" className="hover:text-yellow-300 transition">Início</Link>
-                  <Link href="/loja" className="hover:text-yellow-300 transition flex items-center gap-1">
-                    <ShoppingBag className="w-4 h-4" />
-                    Loja
-                  </Link>
-                  <Link href="/dizimo" className="hover:text-yellow-300 transition">Dízimo</Link>
-                  <Link href="/oracao" className="hover:text-yellow-300 transition">Oração</Link>
-                  <Link href="/estudos" className="hover:text-yellow-300 transition">Estudos</Link>
-                  <Link href="/login" className="bg-white text-purple-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
+                  <Link href="/" className="hover:text-gray-300 transition">Início</Link>
+                  <Link href="/loja" className="hover:text-gray-300 transition">Loja</Link>
+                  <Link href="/dizimo" className="hover:text-gray-300 transition">Dízimo</Link>
+                  <Link href="/oracao" className="hover:text-gray-300 transition">Oração</Link>
+                  <Link href="/estudos" className="hover:text-gray-300 transition">Estudos</Link>
+                  <Link href="/login" className="bg-white text-black px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
                     Área Restrita
                   </Link>
                 </nav>
@@ -46,9 +46,12 @@ export default function RootLayout({
             </div>
           </header>
           <main className="min-h-screen">{children}</main>
-          <footer className="bg-purple-900 text-white py-8 mt-12">
+          <footer className="bg-black text-white py-8 mt-12">
             <div className="container mx-auto px-4 text-center">
-              <p>© 2026 Igreja Nova Jerusalém - Todos os direitos reservados</p>
+              <div className="flex justify-center items-center gap-3 mb-4">
+                <Logo className="w-8 h-8" />
+                <span className="text-gray-400">© 2024 Igreja Nova Jerusalém - Todos os direitos reservados</span>
+              </div>
             </div>
           </footer>
           <Toaster position="top-right" />

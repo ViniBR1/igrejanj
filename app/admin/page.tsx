@@ -10,6 +10,7 @@ import {
   Calendar as CalendarIcon, Clock, XCircle, BookOpen, Bell, Package, ShoppingBag
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import Logo from '@/components/Logo';
 
 interface Pedido {
   id: number;
@@ -231,7 +232,7 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
           <p className="text-gray-600">Carregando painel...</p>
         </div>
       </div>
@@ -251,13 +252,18 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-purple-700 to-purple-900 text-white p-6">
+      {/* Header - Preto */}
+      <div className="bg-black text-white p-6">
         <div className="container mx-auto">
           <div className="flex justify-between items-center flex-wrap gap-4">
             <div>
-              <h1 className="text-3xl font-bold">Painel do Pastor</h1>
-              <p className="mt-1">Bem-vindo, {session?.user?.name || 'Pastor Antonio'}</p>
+              <div className="flex items-center gap-3">
+                <Logo className="w-10 h-10" />
+                <div>
+                  <h1 className="text-3xl font-bold">Painel do Pastor</h1>
+                  <p className="mt-1 text-gray-300">Bem-vindo, {session?.user?.name || 'Jefferson Coelho'}</p>
+                </div>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <button 
@@ -278,9 +284,9 @@ export default function AdminPage() {
       </div>
 
       <div className="container mx-auto p-6">
-        {/* Cards Financeiros */}
+        {/* Cards Financeiros - Preto e Branco */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-6 text-white shadow-md">
+          <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg p-6 text-white shadow-md">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm opacity-90">Total Dízimos</p>
@@ -290,7 +296,7 @@ export default function AdminPage() {
             </div>
           </div>
           
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white shadow-md">
+          <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg p-6 text-white shadow-md">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm opacity-90">Total Ofertas</p>
@@ -300,7 +306,7 @@ export default function AdminPage() {
             </div>
           </div>
           
-          <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-6 text-white shadow-md">
+          <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg p-6 text-white shadow-md">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm opacity-90">Total Arrecadado</p>
@@ -310,7 +316,7 @@ export default function AdminPage() {
             </div>
           </div>
           
-          <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-lg p-6 text-white shadow-md">
+          <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg p-6 text-white shadow-md">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm opacity-90">Transações</p>
@@ -327,9 +333,9 @@ export default function AdminPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Total Pedidos</p>
-                <p className="text-3xl font-bold text-purple-600">{estatisticas.totalPedidos}</p>
+                <p className="text-3xl font-bold text-black">{estatisticas.totalPedidos}</p>
               </div>
-              <Heart className="w-12 h-12 text-purple-300" />
+              <Heart className="w-12 h-12 text-gray-400" />
             </div>
             <div className="mt-4 flex gap-2 text-xs flex-wrap">
               <span className="text-yellow-600">📋 {estatisticas.pendentes} pendentes</span>
@@ -342,9 +348,9 @@ export default function AdminPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Total Orações</p>
-                <p className="text-3xl font-bold text-pink-600">{estatisticas.totalOracoes}</p>
+                <p className="text-3xl font-bold text-black">{estatisticas.totalOracoes}</p>
               </div>
-              <Users className="w-12 h-12 text-pink-300" />
+              <Users className="w-12 h-12 text-gray-400" />
             </div>
             <p className="text-sm text-gray-500 mt-2">pessoas já oraram pelos pedidos</p>
           </div>
@@ -353,9 +359,9 @@ export default function AdminPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Colaboradores</p>
-                <p className="text-3xl font-bold text-blue-600">{colaboradores.length}</p>
+                <p className="text-3xl font-bold text-black">{colaboradores.length}</p>
               </div>
-              <Users className="w-12 h-12 text-blue-300" />
+              <Users className="w-12 h-12 text-gray-400" />
             </div>
             <p className="text-sm text-gray-500 mt-2">voluntários ativos</p>
           </div>
@@ -364,9 +370,9 @@ export default function AdminPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Áreas Ativas</p>
-                <p className="text-3xl font-bold text-green-600">3</p>
+                <p className="text-3xl font-bold text-black">3</p>
               </div>
-              <Church className="w-12 h-12 text-green-300" />
+              <Church className="w-12 h-12 text-gray-400" />
             </div>
             <p className="text-sm text-gray-500 mt-2">ministerios em ação</p>
           </div>
@@ -374,41 +380,41 @@ export default function AdminPage() {
 
         {/* Ações Rápidas */}
         <div className="bg-white rounded-lg p-6 shadow-md mb-8">
-          <h2 className="text-xl font-bold mb-4">Ações Rápidas</h2>
+          <h2 className="text-xl font-bold mb-4 text-black">Ações Rápidas</h2>
           <div className="flex flex-wrap gap-4">
             <Link href="/admin/eventos">
-              <button className="bg-purple-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-purple-700 transition">
+              <button className="bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-gray-800 transition">
                 <Calendar className="w-5 h-5" />
                 Gerenciar Eventos
               </button>
             </Link>
             <Link href="/admin/estudos">
-              <button className="bg-green-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-green-700 transition">
+              <button className="bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-gray-800 transition">
                 <BookOpen className="w-5 h-5" />
                 Gerenciar Estudos
               </button>
             </Link>
             <Link href="/admin/avisos">
-              <button className="bg-yellow-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-yellow-700 transition">
+              <button className="bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-gray-800 transition">
                 <Bell className="w-5 h-5" />
                 Mural de Avisos
               </button>
             </Link>
             <Link href="/admin/produtos">
-              <button className="bg-pink-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-pink-700 transition">
+              <button className="bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-gray-800 transition">
                 <Package className="w-5 h-5" />
                 NJ Store
               </button>
             </Link>
             <Link href="/admin/vendas">
-              <button className="bg-indigo-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition">
+              <button className="bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-gray-800 transition">
                 <ShoppingBag className="w-5 h-5" />
                 Vendas
               </button>
             </Link>
             <button 
               onClick={() => setMostrarFormColaborador(true)}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition"
+              className="bg-black text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-gray-800 transition"
             >
               <Plus className="w-5 h-5" />
               Adicionar Colaborador
@@ -420,14 +426,14 @@ export default function AdminPage() {
         <div className="bg-white rounded-lg shadow-md mb-8">
           <div className="p-6 border-b">
             <div className="flex justify-between items-center flex-wrap gap-4">
-              <h2 className="text-2xl font-bold flex items-center gap-2">
-                <DollarIcon className="w-6 h-6 text-green-600" />
+              <h2 className="text-2xl font-bold flex items-center gap-2 text-black">
+                <DollarIcon className="w-6 h-6 text-black" />
                 Transações Recentes
               </h2>
               <div className="flex gap-2">
-                <button onClick={() => setFiltroTransacao('todas')} className={`px-4 py-2 rounded-lg text-sm ${filtroTransacao === 'todas' ? 'bg-purple-600 text-white' : 'bg-gray-100'}`}>Todas</button>
-                <button onClick={() => setFiltroTransacao('dizimo')} className={`px-4 py-2 rounded-lg text-sm ${filtroTransacao === 'dizimo' ? 'bg-green-600 text-white' : 'bg-gray-100'}`}>Dízimos</button>
-                <button onClick={() => setFiltroTransacao('oferta')} className={`px-4 py-2 rounded-lg text-sm ${filtroTransacao === 'oferta' ? 'bg-blue-600 text-white' : 'bg-gray-100'}`}>Ofertas</button>
+                <button onClick={() => setFiltroTransacao('todas')} className={`px-4 py-2 rounded-lg text-sm ${filtroTransacao === 'todas' ? 'bg-black text-white' : 'bg-gray-100'}`}>Todas</button>
+                <button onClick={() => setFiltroTransacao('dizimo')} className={`px-4 py-2 rounded-lg text-sm ${filtroTransacao === 'dizimo' ? 'bg-black text-white' : 'bg-gray-100'}`}>Dízimos</button>
+                <button onClick={() => setFiltroTransacao('oferta')} className={`px-4 py-2 rounded-lg text-sm ${filtroTransacao === 'oferta' ? 'bg-black text-white' : 'bg-gray-100'}`}>Ofertas</button>
               </div>
             </div>
           </div>
@@ -442,7 +448,7 @@ export default function AdminPage() {
                     <p className="text-sm text-gray-500">{formatarData(transacao.criado_em)}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-green-600">{formatarValor(transacao.valor)}</p>
+                    <p className="font-bold text-black">{formatarValor(transacao.valor)}</p>
                     <p className="text-xs text-gray-500">{transacao.tipo === 'dizimo' ? '🙏 Dízimo' : '🎁 Oferta'}</p>
                   </div>
                 </div>
@@ -454,18 +460,18 @@ export default function AdminPage() {
         {/* Filtros de Pedidos */}
         <div className="bg-white rounded-lg p-4 shadow-md mb-6">
           <div className="flex gap-2 flex-wrap">
-            <button onClick={() => setFiltroPedido('todos')} className={`px-4 py-2 rounded-lg text-sm ${filtroPedido === 'todos' ? 'bg-purple-600 text-white' : 'bg-gray-100'}`}>Todos ({estatisticas.totalPedidos})</button>
-            <button onClick={() => setFiltroPedido('pendente')} className={`px-4 py-2 rounded-lg text-sm ${filtroPedido === 'pendente' ? 'bg-yellow-600 text-white' : 'bg-gray-100'}`}>Pendentes ({estatisticas.pendentes})</button>
-            <button onClick={() => setFiltroPedido('orando')} className={`px-4 py-2 rounded-lg text-sm ${filtroPedido === 'orando' ? 'bg-blue-600 text-white' : 'bg-gray-100'}`}>Em Oração ({estatisticas.orando})</button>
-            <button onClick={() => setFiltroPedido('concluido')} className={`px-4 py-2 rounded-lg text-sm ${filtroPedido === 'concluido' ? 'bg-green-600 text-white' : 'bg-gray-100'}`}>Concluídos ({estatisticas.concluidos})</button>
+            <button onClick={() => setFiltroPedido('todos')} className={`px-4 py-2 rounded-lg text-sm ${filtroPedido === 'todos' ? 'bg-black text-white' : 'bg-gray-100'}`}>Todos ({estatisticas.totalPedidos})</button>
+            <button onClick={() => setFiltroPedido('pendente')} className={`px-4 py-2 rounded-lg text-sm ${filtroPedido === 'pendente' ? 'bg-black text-white' : 'bg-gray-100'}`}>Pendentes ({estatisticas.pendentes})</button>
+            <button onClick={() => setFiltroPedido('orando')} className={`px-4 py-2 rounded-lg text-sm ${filtroPedido === 'orando' ? 'bg-black text-white' : 'bg-gray-100'}`}>Em Oração ({estatisticas.orando})</button>
+            <button onClick={() => setFiltroPedido('concluido')} className={`px-4 py-2 rounded-lg text-sm ${filtroPedido === 'concluido' ? 'bg-black text-white' : 'bg-gray-100'}`}>Concluídos ({estatisticas.concluidos})</button>
           </div>
         </div>
 
         {/* Pedidos de Oração */}
         <div className="bg-white rounded-lg shadow-md mb-8">
           <div className="p-6 border-b">
-            <h2 className="text-2xl font-bold flex items-center gap-2">
-              <Heart className="w-6 h-6 text-pink-600" />
+            <h2 className="text-2xl font-bold flex items-center gap-2 text-black">
+              <Heart className="w-6 h-6 text-black" />
               Pedidos de Oração
             </h2>
           </div>
@@ -480,16 +486,16 @@ export default function AdminPage() {
                       <p className="font-bold">{pedido.nome}</p>
                       <p className="text-sm text-gray-600">{pedido.motivo.substring(0, 100)}...</p>
                       <div className="flex items-center gap-2 mt-1">
-                        <Heart className="w-3 h-3 text-pink-500" />
+                        <Heart className="w-3 h-3 text-black" />
                         <span className="text-xs text-gray-500">{pedido.oracoes} orações</span>
                       </div>
                     </div>
                     <div className="flex gap-2">
                       {pedido.status === 'pendente' && (
-                        <button onClick={() => atualizarStatusPedido(pedido.id, 'orando')} className="bg-blue-500 text-white px-2 py-1 rounded text-xs">Iniciar</button>
+                        <button onClick={() => atualizarStatusPedido(pedido.id, 'orando')} className="bg-black text-white px-2 py-1 rounded text-xs">Iniciar</button>
                       )}
                       {pedido.status === 'orando' && (
-                        <button onClick={() => atualizarStatusPedido(pedido.id, 'concluido')} className="bg-green-500 text-white px-2 py-1 rounded text-xs">Concluir</button>
+                        <button onClick={() => atualizarStatusPedido(pedido.id, 'concluido')} className="bg-black text-white px-2 py-1 rounded text-xs">Concluir</button>
                       )}
                     </div>
                   </div>
@@ -502,8 +508,8 @@ export default function AdminPage() {
         {/* Colaboradores */}
         <div className="bg-white rounded-lg shadow-md">
           <div className="p-6 border-b">
-            <h2 className="text-2xl font-bold flex items-center gap-2">
-              <Users className="w-6 h-6 text-blue-600" />
+            <h2 className="text-2xl font-bold flex items-center gap-2 text-black">
+              <Users className="w-6 h-6 text-black" />
               Colaboradores
             </h2>
           </div>
@@ -518,7 +524,7 @@ export default function AdminPage() {
                   <option value="eventos">Eventos</option>
                   <option value="acolhida">Acolhida</option>
                 </select>
-                <button onClick={adicionarColaborador} className="bg-purple-600 text-white px-3 py-2 rounded">Salvar</button>
+                <button onClick={adicionarColaborador} className="bg-black text-white px-3 py-2 rounded">Salvar</button>
                 <button onClick={() => setMostrarFormColaborador(false)} className="bg-gray-300 px-3 py-2 rounded">Cancelar</button>
               </div>
             </div>

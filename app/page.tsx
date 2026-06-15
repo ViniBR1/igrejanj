@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { 
   Heart, DollarSign, BookOpen, Calendar, MapPin, 
   Clock, ChevronLeft, ChevronRight, Church, 
-  Users, Bell, AlertCircle, Info, X
+  Users, Bell, AlertCircle, Info, X, ShoppingBag
 } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import Logo from '@/components/Logo';
 
 interface Evento {
   id: number;
@@ -42,7 +43,6 @@ export default function Home() {
     carregarEventos();
     carregarAvisos();
     
-    // Carregar avisos fechados do localStorage
     const fechados = localStorage.getItem('avisosFechados');
     if (fechados) {
       setAvisoFechado(JSON.parse(fechados));
@@ -94,26 +94,34 @@ export default function Home() {
     { 
       icon: DollarSign, 
       title: 'Dízimo e Ofertas', 
-      desc: 'Contribua com segurança via PIX ou cartão',
+      desc: 'Contribua com segurança via PIX',
       link: '/dizimo',
-      bg: 'bg-purple-100',
-      color: 'text-purple-600'
+      bg: 'bg-gray-100',
+      color: 'text-black'
     },
     { 
       icon: Heart, 
       title: 'Pedidos de Oração', 
-      desc: 'Compartilhe sua necessidade e receba intercessão',
+      desc: 'Compartilhe sua necessidade',
       link: '/oracao',
-      bg: 'bg-pink-100',
-      color: 'text-pink-600'
+      bg: 'bg-gray-100',
+      color: 'text-black'
     },
     { 
       icon: BookOpen, 
       title: 'Estudos Bíblicos', 
-      desc: 'Materiais para download e crescimento espiritual',
+      desc: 'Materiais para download',
       link: '/estudos',
-      bg: 'bg-green-100',
-      color: 'text-green-600'
+      bg: 'bg-gray-100',
+      color: 'text-black'
+    },
+    { 
+      icon: ShoppingBag, 
+      title: 'NJ Store', 
+      desc: 'Produtos oficiais da igreja',
+      link: '/loja',
+      bg: 'bg-gray-100',
+      color: 'text-black'
     }
   ];
 
@@ -122,21 +130,21 @@ export default function Home() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Mural de Avisos */}
       {avisosAtivos.length > 0 && (
-        <div className="bg-yellow-50 border-b border-yellow-200">
+        <div className="bg-gray-100 border-b border-gray-200">
           <div className="container mx-auto px-4 py-3">
             {avisosAtivos.map((aviso) => (
               <div key={aviso.id} className={`relative p-4 rounded-lg mb-2 ${
                 aviso.tipo === 'urgente' ? 'bg-red-50 border border-red-200' :
-                aviso.tipo === 'evento' ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'
+                aviso.tipo === 'evento' ? 'bg-green-50 border border-green-200' : 'bg-gray-50 border border-gray-200'
               }`}>
                 <button 
                   onClick={() => fecharAviso(aviso.id)}
@@ -147,13 +155,13 @@ export default function Home() {
                 <div className="flex items-start gap-3 pr-6">
                   {aviso.tipo === 'urgente' && <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />}
                   {aviso.tipo === 'evento' && <Calendar className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />}
-                  {aviso.tipo === 'informativo' && <Bell className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />}
+                  {aviso.tipo === 'informativo' && <Bell className="w-5 h-5 text-gray-500 flex-shrink-0 mt-0.5" />}
                   <div>
                     <h3 className={`font-bold ${
                       aviso.tipo === 'urgente' ? 'text-red-800' :
-                      aviso.tipo === 'evento' ? 'text-green-800' : 'text-blue-800'
+                      aviso.tipo === 'evento' ? 'text-green-800' : 'text-gray-800'
                     }`}>{aviso.titulo}</h3>
-                    <p className="text-gray-700 text-sm">{aviso.mensagem}</p>
+                    <p className="text-gray-600 text-sm">{aviso.mensagem}</p>
                   </div>
                 </div>
               </div>
@@ -162,8 +170,8 @@ export default function Home() {
         </div>
       )}
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-700 to-purple-900 text-white py-20">
+      {/* Hero Section - Preto e Branco */}
+      <section className="bg-black text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
             Bem-vindo à Igreja Nova Jerusalém
@@ -174,13 +182,13 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/dizimo" 
-              className="bg-yellow-500 text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-yellow-400 transition transform hover:scale-105 shadow-lg"
+              className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition transform hover:scale-105 shadow-lg"
             >
               Contribuir Agora
             </Link>
             <Link 
               href="/oracao" 
-              className="border-2 border-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-700 transition transform hover:scale-105"
+              className="border-2 border-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition transform hover:scale-105"
             >
               Pedir Oração
             </Link>
@@ -193,7 +201,7 @@ export default function Home() {
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-purple-700 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
                 Próximos Eventos
               </h2>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto">
@@ -210,7 +218,7 @@ export default function Home() {
                       className="embla__slide min-w-0 flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] px-4"
                     >
                       <Link href={`/eventos/${evento.id}`}>
-                        <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group/card">
+                        <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group/card border border-gray-200">
                           <div className="relative h-56 overflow-hidden">
                             {evento.imagem_url ? (
                               <div 
@@ -218,12 +226,12 @@ export default function Home() {
                                 style={{ backgroundImage: `url(${evento.imagem_url})` }}
                               />
                             ) : (
-                              <div className="w-full h-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
-                                <Calendar className="w-16 h-16 text-white opacity-50" />
+                              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                                <Calendar className="w-16 h-16 text-gray-400" />
                               </div>
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/card:opacity-100 transition" />
-                            <div className="absolute bottom-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            <div className="absolute bottom-4 left-4 bg-black text-white px-3 py-1 rounded-full text-sm font-semibold">
                               {formatarData(evento.data_evento)}
                             </div>
                           </div>
@@ -239,12 +247,12 @@ export default function Home() {
                             <div className="space-y-2 text-sm text-gray-500">
                               {evento.local && (
                                 <div className="flex items-center gap-2">
-                                  <MapPin className="w-4 h-4 text-purple-500" />
+                                  <MapPin className="w-4 h-4 text-gray-500" />
                                   <span className="line-clamp-1">{evento.local}</span>
                                 </div>
                               )}
                               <div className="flex items-center gap-2">
-                                <Clock className="w-4 h-4 text-purple-500" />
+                                <Clock className="w-4 h-4 text-gray-500" />
                                 <span>
                                   {new Date(evento.data_evento).toLocaleTimeString('pt-BR', {
                                     hour: '2-digit',
@@ -255,7 +263,7 @@ export default function Home() {
                             </div>
 
                             <div className="mt-4 pt-4 border-t border-gray-100">
-                              <span className="text-purple-600 font-semibold text-sm flex items-center gap-1">
+                              <span className="text-black font-semibold text-sm flex items-center gap-1">
                                 Saiba mais →
                               </span>
                             </div>
@@ -271,13 +279,13 @@ export default function Home() {
                 <>
                   <button
                     onClick={scrollPrev}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-white/90 hover:bg-white text-purple-600 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-white/90 hover:bg-white text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 border border-gray-200"
                   >
                     <ChevronLeft className="w-6 h-6" />
                   </button>
                   <button
                     onClick={scrollNext}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-white/90 hover:bg-white text-purple-600 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-white/90 hover:bg-white text-black p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 border border-gray-200"
                   >
                     <ChevronRight className="w-6 h-6" />
                   </button>
@@ -292,7 +300,7 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-purple-700 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
               Nossos Serviços
             </h2>
             <p className="text-gray-600 text-lg">
@@ -300,14 +308,14 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {servicos.map((servico, index) => (
               <Link 
                 key={index}
                 href={servico.link}
-                className="group bg-gray-50 p-8 rounded-xl text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="group bg-gray-50 p-8 rounded-xl text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200"
               >
-                <div className={`w-20 h-20 ${servico.bg} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition`}>
+                <div className={`w-20 h-20 ${servico.bg} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition border border-gray-200`}>
                   <servico.icon className={`w-10 h-10 ${servico.color}`} />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">{servico.title}</h3>
@@ -319,14 +327,14 @@ export default function Home() {
       </section>
 
       {/* Versículo */}
-      <section className="py-20 bg-gradient-to-r from-purple-100 to-pink-100">
+      <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <p className="text-2xl md:text-3xl italic text-purple-900 mb-4 leading-relaxed">
+            <p className="text-2xl md:text-3xl italic text-gray-800 mb-4 leading-relaxed">
               "Cada um contribua segundo tiver proposto no coração, não com tristeza ou por necessidade; 
               porque Deus ama ao que dá com alegria."
             </p>
-            <p className="text-lg text-purple-700 font-semibold">- 2 Coríntios 9:7</p>
+            <p className="text-lg text-gray-600 font-semibold">- 2 Coríntios 9:7</p>
           </div>
         </div>
       </section>
@@ -335,7 +343,7 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-purple-700 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
               Horários dos Cultos
             </h2>
             <p className="text-gray-600 text-lg">
@@ -344,9 +352,9 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-gradient-to-b from-purple-50 to-white rounded-xl p-6 text-center hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Church className="w-8 h-8 text-purple-600" />
+            <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition border border-gray-200">
+              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Church className="w-8 h-8 text-gray-700" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Domingo</h3>
               <div className="space-y-2 text-gray-600">
@@ -356,9 +364,9 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-b from-purple-50 to-white rounded-xl p-6 text-center hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="w-8 h-8 text-purple-600" />
+            <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition border border-gray-200">
+              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="w-8 h-8 text-gray-700" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Quarta-feira</h3>
               <div className="space-y-2 text-gray-600">
@@ -367,9 +375,9 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-b from-purple-50 to-white rounded-xl p-6 text-center hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-8 h-8 text-purple-600" />
+            <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition border border-gray-200">
+              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Heart className="w-8 h-8 text-gray-700" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Sexta-feira</h3>
               <div className="space-y-2 text-gray-600">
@@ -382,13 +390,13 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-purple-900 text-white py-12">
+      <footer className="bg-black text-white py-12">
         <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Church className="w-6 h-6" />
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Logo className="w-10 h-10" />
             <span className="text-xl font-bold">Igreja Nova Jerusalém</span>
           </div>
-          <p className="text-gray-300">© 2024 - Todos os direitos reservados</p>
+          <p className="text-gray-400">© 2024 - Todos os direitos reservados</p>
         </div>
       </footer>
 

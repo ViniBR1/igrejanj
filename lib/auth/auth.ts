@@ -5,7 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 const usuariosFixos = [
   {
     id: "1",
-    nome: "Pastor Antonio",
+    nome: "Jefferson Coelho",
     email: "pastor@nj.com",
     senha: "123456",
     tipo: "admin",
@@ -54,7 +54,6 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Retornar apenas os campos que o NextAuth espera
         return {
           id: usuario.id,
           email: usuario.email,
@@ -66,7 +65,6 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        // Buscar o tipo do usuário fixo
         const usuario = usuariosFixos.find(u => u.email === user.email);
         token.tipo = usuario?.tipo || "fiel";
         token.id = user.id;
