@@ -1,37 +1,9 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { neon } from '@neondatabase/serverless';
+import bcrypt from 'bcryptjs';
 
-// USUÁRIOS FIXOS
-const usuariosFixos = [
-  {
-    id: "1",
-    nome: "Jefferson Coelho",
-    email: "pastor@nj.com",
-    senha: "123456",
-    tipo: "admin",
-  },
-  {
-    id: "2",
-    nome: "Carlos",
-    email: "carlos@nj.com",
-    senha: "123456",
-    tipo: "colaborador",
-  },
-  {
-    id: "3",
-    nome: "Maria",
-    email: "maria@nj.com",
-    senha: "123456",
-    tipo: "colaborador",
-  },
-  {
-    id: "4",
-    nome: "João",
-    email: "joao@nj.com",
-    senha: "123456",
-    tipo: "colaborador",
-  }
-];
+const sql = neon(process.env.DATABASE_URL!);
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -46,27 +18,42 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const usuario = usuariosFixos.find(
-          u => u.email === credentials.email && u.senha === credentials.senha
-        );
-
-        if (!usuario) {
+        try {
+          const usuarios = await sql`
+            SELECT id, nome, email, senha, tipo FROM usuarios WHERE email = ${credentials.email}
+          `;
+          
+          if (usuarios.length === 0) {
+            console.log('Usuário não encontrado:', credentials.email);
+            return null;
+          }
+          
+          const usuario = usuarios[0];
+          const senhaValida = await bcrypt.compare(credentials.senha, usuario.senha);
+          
+          if (!senhaValida) {
+            return null;
+          }
+          
+          console.log('Login autorizado para:', usuario.nome, 'ID:', usuario.id);
+          
+          return {
+            id: usuario.id.toString(),
+            email: usuario.email,
+            name: usuario.nome,
+            tipo: usuario.tipo,
+          };
+        } catch (error) {
+          console.error('Erro no authorize:', error);
           return null;
         }
-
-        return {
-          id: usuario.id,
-          email: usuario.email,
-          name: usuario.nome,
-        };
       }
     })
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        const usuario = usuariosFixos.find(u => u.email === user.email);
-        token.tipo = usuario?.tipo || "fiel";
+        token.tipo = user.tipo;
         token.id = user.id;
       }
       return token;

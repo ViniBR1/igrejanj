@@ -339,7 +339,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Horários */}
+      {/* Horários dos Cultos - ATUALIZADO */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -351,38 +351,39 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {/* Terça-feira */}
             <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition border border-gray-200">
-              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Church className="w-8 h-8 text-gray-700" />
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">📅</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Domingo</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Terça-feira</h3>
               <div className="space-y-2 text-gray-600">
-                <p>09:00 - Culto da Família</p>
-                <p>18:00 - Culto da Juventude</p>
-                <p>19:00 - Culto de Celebração</p>
+                <p>🙏 Consagração <span className="font-semibold text-purple-600">09:00</span></p>
+                <p>👥 GC <span className="font-semibold text-purple-600">19:30</span></p>
               </div>
             </div>
 
+            {/* Quarta-feira */}
             <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition border border-gray-200">
-              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="w-8 h-8 text-gray-700" />
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🔥</span>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Quarta-feira</h3>
               <div className="space-y-2 text-gray-600">
-                <p>19:30 - Culto de Ensino</p>
-                <p>Estudo da Palavra</p>
+                <p>Quarta Power <span className="font-semibold text-purple-600">19:30</span></p>
               </div>
             </div>
 
+            {/* Domingo */}
             <div className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition border border-gray-200">
-              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-8 h-8 text-gray-700" />
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🌟</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Sexta-feira</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Domingo</h3>
               <div className="space-y-2 text-gray-600">
-                <p>19:30 - Culto de Libertação</p>
-                <p>Oração e Cura Interior</p>
+                <p>📖 Manhã dos Discípulos <span className="font-semibold text-purple-600">08:30</span></p>
+                <p>🌟 Culto de Celebração <span className="font-semibold text-purple-600">18:00</span></p>
               </div>
             </div>
           </div>
@@ -396,7 +397,7 @@ export default function Home() {
             <Logo className="w-10 h-10" />
             <span className="text-xl font-bold">Igreja Nova Jerusalém</span>
           </div>
-          <p className="text-gray-400">© 2024 - Todos os direitos reservados</p>
+          <p className="text-gray-400">© 2026 - Todos os direitos reservados</p>
         </div>
       </footer>
 
