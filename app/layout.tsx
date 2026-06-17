@@ -5,11 +5,12 @@ import { Toaster } from 'react-hot-toast';
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
-import { MapPin, Church, ShoppingBag, Heart, BookOpen, Home, Calendar, Music } from 'lucide-react';
+import { MapPin, Church, ShoppingBag, Heart, BookOpen, Home, Calendar, Music, Play } from 'lucide-react';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://igrejanj.vercel.app'),
   title: 'Igreja Nova Jerusalém',
   description: 'Um lugar de fé, esperança e amor',
   keywords: 'igreja, nova jerusalém, fé, amor, esperança, culto, louvor',
@@ -38,6 +39,36 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
+      <head>
+        {/* PWA Meta Tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="NJ Church" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        
+        {/* Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        
+        {/* Apple Touch Icon */}
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        
+        {/* PWA Script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('✅ PWA instalado!', reg))
+                    .catch(err => console.log('❌ PWA erro:', err));
+                });
+              }
+            `
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <AuthProvider>
           {/* Header Moderno */}
@@ -65,6 +96,9 @@ export default function RootLayout({
                   <Link href="/" className="px-4 py-2 rounded-lg hover:bg-white/10 transition flex items-center gap-2 text-sm font-medium">
                     <Home className="w-4 h-4" /> Início
                   </Link>
+                  <Link href="/ao-vivo" className="px-4 py-2 rounded-lg hover:bg-white/10 transition flex items-center gap-2 text-sm font-medium">
+                    <Play className="w-4 h-4" /> Ao Vivo
+                  </Link>
                   <Link href="/loja" className="px-4 py-2 rounded-lg hover:bg-white/10 transition flex items-center gap-2 text-sm font-medium">
                     <ShoppingBag className="w-4 h-4" /> Loja
                   </Link>
@@ -85,7 +119,7 @@ export default function RootLayout({
                   </Link>
                 </nav>
 
-                {/* Área Restrita e Menu Mobile */}
+                {/* Área Restrita */}
                 <div className="flex items-center gap-3">
                   <Link href="/login" className="bg-white text-black px-5 py-2.5 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg hover:shadow-xl text-sm">
                     Área Restrita
@@ -100,10 +134,11 @@ export default function RootLayout({
                 </div>
               </div>
 
-              {/* Menu Mobile (opcional - será implementado depois) */}
+              {/* Menu Mobile */}
               <div className="xl:hidden hidden" id="mobile-menu">
                 <div className="py-4 space-y-2 border-t border-gray-800">
                   <Link href="/" className="block px-4 py-2 hover:bg-white/10 rounded-lg transition">Início</Link>
+                  <Link href="/ao-vivo" className="block px-4 py-2 hover:bg-white/10 rounded-lg transition">Ao Vivo</Link>
                   <Link href="/loja" className="block px-4 py-2 hover:bg-white/10 rounded-lg transition">Loja</Link>
                   <Link href="/dizimo" className="block px-4 py-2 hover:bg-white/10 rounded-lg transition">Dízimo</Link>
                   <Link href="/oracao" className="block px-4 py-2 hover:bg-white/10 rounded-lg transition">Oração</Link>
@@ -149,6 +184,7 @@ export default function RootLayout({
                   <h3 className="text-lg font-semibold mb-4">Links Rápidos</h3>
                   <ul className="space-y-3 text-gray-400">
                     <li><Link href="/" className="hover:text-white transition">Início</Link></li>
+                    <li><Link href="/ao-vivo" className="hover:text-white transition">Transmissão ao Vivo</Link></li>
                     <li><Link href="/eventos" className="hover:text-white transition">Eventos</Link></li>
                     <li><Link href="/estudos" className="hover:text-white transition">Estudos Bíblicos</Link></li>
                     <li><Link href="/dizimo" className="hover:text-white transition">Dízimo e Ofertas</Link></li>

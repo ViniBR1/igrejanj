@@ -9,7 +9,7 @@ import {
   Calendar, TrendingUp, DollarSign as DollarIcon, 
   Calendar as CalendarIcon, Clock, XCircle, BookOpen, 
   Bell, Package, ShoppingBag, Music, UserPlus,
-  LayoutDashboard, Mail, Lock, User, Edit
+  LayoutDashboard, Mail, Lock, User, Play
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import Logo from '@/components/Logo';
@@ -37,11 +37,8 @@ interface Colaborador {
   id: number;
   nome: string;
   email: string;
-  area_id: number;
-  area_nome: string;
-  funcao: string;
-  nivel: string;
-  telefone: string;
+  area: string;
+  area_nome?: string;
   ativo: boolean;
 }
 
@@ -52,7 +49,7 @@ export default function AdminPage() {
   const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [colaboradores, setColaboradores] = useState<Colaborador[]>([]);
-  const [areas, setAreas] = useState<{id: number, nome: string, tipo: string}[]>([]);
+  const [areas, setAreas] = useState<{id: number, nome: string}[]>([]);
   const [mostrarFormColaborador, setMostrarFormColaborador] = useState(false);
   const [filtroPedido, setFiltroPedido] = useState('todos');
   const [filtroTransacao, setFiltroTransacao] = useState('todas');
@@ -181,7 +178,7 @@ export default function AdminPage() {
 
   const adicionarColaborador = async () => {
     if (!novoColaborador.nome || !novoColaborador.email || !novoColaborador.area) {
-      toast.error("Preencha nome, email e área!");
+      toast.error("Preencha todos os campos!");
       return;
     }
 
@@ -193,7 +190,6 @@ export default function AdminPage() {
     setCriando(true);
 
     try {
-      // Verificar se email já existe
       const checkResponse = await fetch(`/api/usuarios/check?email=${encodeURIComponent(novoColaborador.email)}`);
       const check = await checkResponse.json();
       
@@ -203,7 +199,6 @@ export default function AdminPage() {
         return;
       }
 
-      // Criar usuário
       const userResponse = await fetch('/api/usuarios', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -222,7 +217,6 @@ export default function AdminPage() {
 
       const user = await userResponse.json();
       
-      // Associar à área com função e nível
       await fetch('/api/colaboradores', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -489,6 +483,12 @@ export default function AdminPage() {
                 Disponibilidade
               </button>
             </Link>
+            <Link href="/admin/transmissoes">
+              <button className="bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-700 transition text-sm">
+                <Play className="w-4 h-4" />
+                Transmissões ao Vivo
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -625,7 +625,7 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Adicionar Novo Colaborador - Formulário Completo */}
+        {/* Adicionar Colaborador */}
         <div className="bg-white rounded-lg shadow-md">
           <div className="p-6 border-b">
             <h2 className="text-2xl font-bold flex items-center gap-2 text-black">
@@ -706,7 +706,7 @@ export default function AdminPage() {
                   </div>
                 </div>
                 
-                <div>
+                <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Área de Atuação *
                   </label>
