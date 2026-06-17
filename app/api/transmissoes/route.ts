@@ -1,31 +1,22 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
+export const dynamic = 'force-dynamic';
+
 const sql = neon(process.env.DATABASE_URL!);
 
 // Função para converter link do YouTube para embed
 function converterLinkYouTube(link: string): string {
   if (!link) return link;
-  
-  // Se já for embed, retorna
   if (link.includes('/embed/')) return link;
-  
-  // Se for watch?v=, converte para embed
   if (link.includes('watch?v=')) {
     const videoId = link.split('watch?v=')[1]?.split('&')[0];
-    if (videoId) {
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
+    if (videoId) return `https://www.youtube.com/embed/${videoId}`;
   }
-  
-  // Se for youtu.be/...
   if (link.includes('youtu.be/')) {
     const videoId = link.split('youtu.be/')[1]?.split('?')[0];
-    if (videoId) {
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
+    if (videoId) return `https://www.youtube.com/embed/${videoId}`;
   }
-  
   return link;
 }
 
@@ -56,7 +47,6 @@ export async function GET(request: Request) {
       `;
     }
     
-    // Converter links para embed
     const resultado = query.map((trans: any) => ({
       ...trans,
       link: converterLinkYouTube(trans.link)
@@ -73,8 +63,6 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const { titulo, descricao, plataforma, link, data_transmissao, duracao, imagem_url, criado_por } = await request.json();
-    
-    // Converter link para embed
     const linkConvertido = converterLinkYouTube(link);
     
     const nova = await sql`
@@ -96,8 +84,6 @@ export async function PUT(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const { titulo, descricao, plataforma, link, data_transmissao, duracao, imagem_url, ativo } = await request.json();
-    
-    // Converter link para embed
     const linkConvertido = converterLinkYouTube(link);
     
     const atualizada = await sql`
@@ -127,10 +113,7 @@ export async function DELETE(request: Request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     
-    await sql`
-      DELETE FROM transmissoes WHERE id = ${id}
-    `;
-    
+    await sql`DELETE FROM transmissoes WHERE id = ${id}`;
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Erro ao remover transmissão:', error);

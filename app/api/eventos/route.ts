@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
+export const dynamic = 'force-dynamic';
+
 const sql = neon(process.env.DATABASE_URL!);
 
-// GET - Buscar todos os eventos
 export async function GET() {
   try {
     const eventos = await sql`
@@ -18,7 +19,6 @@ export async function GET() {
   }
 }
 
-// POST - Criar novo evento
 export async function POST(request: Request) {
   try {
     const { titulo, descricao, data_evento, local, imagem_url, criado_por } = await request.json();
@@ -36,10 +36,11 @@ export async function POST(request: Request) {
   }
 }
 
-// PUT - Atualizar evento existente
 export async function PUT(request: Request) {
   try {
-    const { id, titulo, descricao, data_evento, local, imagem_url } = await request.json();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    const { titulo, descricao, data_evento, local, imagem_url } = await request.json();
     
     const eventoAtualizado = await sql`
       UPDATE eventos 
@@ -59,7 +60,6 @@ export async function PUT(request: Request) {
   }
 }
 
-// DELETE - Remover evento
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

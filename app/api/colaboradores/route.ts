@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
+export const dynamic = 'force-dynamic';
+
 const sql = neon(process.env.DATABASE_URL!);
 
 export async function GET(request: Request) {
@@ -120,13 +122,11 @@ export async function POST(request: Request) {
   try {
     const { usuario_id, area_id, funcao, nivel } = await request.json();
     
-    // Verificar se já existe
     const existe = await sql`
       SELECT id FROM colaboradores WHERE usuario_id = ${usuario_id} AND area_id = ${area_id}
     `;
     
     if (existe.length > 0) {
-      // Atualizar
       const atualizado = await sql`
         UPDATE colaboradores 
         SET funcao = ${funcao || ''}, nivel = ${nivel || 'membro'}, ativo = true
@@ -164,6 +164,7 @@ export async function PUT(request: Request) {
     
     return NextResponse.json(atualizado[0]);
   } catch (error) {
+    console.error('Erro ao atualizar colaborador:', error);
     return NextResponse.json({ error: 'Erro ao atualizar' }, { status: 500 });
   }
 }
@@ -179,6 +180,7 @@ export async function DELETE(request: Request) {
     
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error('Erro ao remover colaborador:', error);
     return NextResponse.json({ error: 'Erro ao remover' }, { status: 500 });
   }
 }

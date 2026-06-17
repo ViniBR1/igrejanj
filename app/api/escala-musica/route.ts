@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
+export const dynamic = 'force-dynamic';
+
 const sql = neon(process.env.DATABASE_URL!);
 
 // GET - Buscar escalas
@@ -14,9 +16,7 @@ export async function GET(request: Request) {
     
     console.log('GET /api/escala-musica - Parâmetros:', { data, colaboradorId, todas, id });
     
-    // ============================================
-    // BUSCAR ESCALA POR ID (MINISTRO)
-    // ============================================
+    // BUSCAR ESCALA POR ID
     if (id) {
       const escala = await sql`
         SELECT 
@@ -72,9 +72,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ ...escala[0], membros, musicas });
     }
     
-    // ============================================
     // BUSCAR ESCALAS DO COLABORADOR
-    // ============================================
     if (colaboradorId) {
       const escalas = await sql`
         SELECT DISTINCT
@@ -128,9 +126,7 @@ export async function GET(request: Request) {
       return NextResponse.json(resultado);
     }
     
-    // ============================================
     // BUSCAR ESCALAS POR DATA
-    // ============================================
     if (data) {
       const escalas = await sql`
         SELECT 
@@ -183,9 +179,7 @@ export async function GET(request: Request) {
       return NextResponse.json(resultado);
     }
     
-    // ============================================
     // BUSCAR TODAS AS ESCALAS
-    // ============================================
     if (todas) {
       const escalas = await sql`
         SELECT 
@@ -237,9 +231,7 @@ export async function GET(request: Request) {
       return NextResponse.json(resultado);
     }
     
-    // ============================================
     // BUSCAR ÚLTIMAS 10 ESCALAS
-    // ============================================
     const escalas = await sql`
       SELECT 
         em.*,
@@ -323,7 +315,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Selecione pelo menos um músico' }, { status: 400 });
     }
     
-    // Buscar o nome do ministro
     let ministroNome = '';
     if (ministro_id) {
       const ministro = await sql`
