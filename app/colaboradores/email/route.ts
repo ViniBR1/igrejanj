@@ -1,17 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
-// 🔥 FORÇA ROTA DINÂMICA - NUNCA gerar estaticamente
+// 🔥 CONFIGURAÇÕES OBRIGATÓRIAS
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 export const revalidate = 0;
 
 const sql = neon(process.env.DATABASE_URL!);
 
-export async function GET(request: Request) {
+export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get('email');
+    const email = req.nextUrl.searchParams.get('email');
     
     console.log('Buscando colaborador por email:', email);
     
