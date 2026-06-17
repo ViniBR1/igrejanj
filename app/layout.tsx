@@ -6,6 +6,8 @@ import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
 import { MapPin, Home, ShoppingBag, Heart, BookOpen, Calendar, Play } from 'lucide-react';
+import InstallButton from '@/components/InstallButton';
+import InstallInstructions from '@/components/InstallInstructions';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -67,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <main className="min-h-screen">{children}</main>
 
-          {/* Footer Preto com nome preto */}
+          {/* Footer Branco com nome preto */}
           <footer className="bg-white text-black border-t border-gray-200">
             <div className="container mx-auto px-4 py-8 md:py-12">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -133,6 +135,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
           </footer>
+
+          {/* Instalação do App - PWA */}
+          <InstallButton />
+          <InstallInstructions />
 
           <Toaster
             position="top-right"
