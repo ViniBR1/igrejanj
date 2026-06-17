@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
+// 🔥 FORÇA a rota a ser DINÂMICA (não gerada estaticamente)
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const sql = neon(process.env.DATABASE_URL!);
 
 export async function GET(request: Request) {
