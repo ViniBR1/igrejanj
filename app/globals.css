@@ -2,95 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Cores personalizadas - Preto e Branco */
+/* ============================================
+   ROOT VARIABLES
+   ============================================ */
 :root {
-  --primary: #000000;
-  --primary-dark: #111111;
-  --secondary: #333333;
-  --accent: #ffffff;
-  --background: #ffffff;
-  --text: #1a1a1a;
-  --text-light: #666666;
+  --primary: #DC2626;
+  --primary-dark: #991B1B;
+  --primary-light: #FEE2E2;
+  --black: #000000;
+  --white: #FFFFFF;
+  --gray-light: #F5F5F5;
+  --gray: #E5E5E5;
 }
 
+/* ============================================
+   BODY
+   ============================================ */
 body {
-  background-color: var(--background);
-  color: var(--text);
+  background-color: var(--white);
+  color: var(--black);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Botão principal preto */
-.btn-primary {
-  @apply bg-black text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-800 transition-all transform hover:scale-105;
-}
-
-/* Botão secundário branco com borda preta */
-.btn-secondary {
-  @apply border-2 border-black text-black px-6 py-2 rounded-lg font-semibold hover:bg-black hover:text-white transition-all;
-}
-
-/* Cards */
-.card {
-  @apply bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200;
-}
-
-/* Container */
-.container-custom {
-  @apply container mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-/* Carrossel */
-.embla {
-  overflow: hidden;
-}
-.embla__container {
-  display: flex;
-}
-.embla__slide {
-  flex: 0 0 100%;
-  min-width: 0;
-}
-@media (min-width: 768px) {
-  .embla__slide {
-    flex: 0 0 50%;
+/* ============================================
+   COMPONENTES
+   ============================================ */
+@layer components {
+  .btn-primary {
+    @apply bg-red-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-red-700 transition-all transform hover:scale-105 shadow-lg;
   }
-}
-@media (min-width: 1024px) {
-  .embla__slide {
-    flex: 0 0 33.33%;
+  
+  .btn-secondary {
+    @apply border-2 border-black text-black px-6 py-3 rounded-full font-semibold hover:bg-black hover:text-white transition-all;
   }
-}
-
-/* Utilidades */
-.line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Animações */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  
+  .btn-red {
+    @apply bg-red-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-red-700 transition-all;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .card {
+    @apply bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100;
   }
-}
-.animate-fade-in {
-  animation: fade-in 0.8s ease-out;
+  
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
 }
