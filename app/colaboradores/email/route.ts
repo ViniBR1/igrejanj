@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
-// 🔥 FORÇA a rota a ser DINÂMICA (não gerada estaticamente)
+// 🔥 FORÇA ROTA DINÂMICA - NUNCA gerar estaticamente
 export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
 
 const sql = neon(process.env.DATABASE_URL!);
 
