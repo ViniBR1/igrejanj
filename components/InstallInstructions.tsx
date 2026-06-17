@@ -7,15 +7,13 @@ export default function InstallInstructions() {
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    // Verificar se já está instalado
     const installed = window.matchMedia('(display-mode: standalone)').matches;
     setIsInstalled(installed);
     
-    // Mostrar instruções se não estiver instalado
     if (!installed) {
       const timer = setTimeout(() => {
         setShow(true);
-      }, 3000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -23,7 +21,7 @@ export default function InstallInstructions() {
   if (isInstalled || !show) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-black">📱 Instalar App</h2>
@@ -34,31 +32,31 @@ export default function InstallInstructions() {
         
         <div className="space-y-4">
           <p className="text-gray-600 text-sm">
-            Instale o app da Igreja Nova Jerusalém na tela inicial do seu celular para acesso rápido!
+            Instale o app da Igreja Nova Jerusalém na tela inicial do seu celular!
           </p>
           
           <div className="bg-gray-50 rounded-xl p-4 space-y-3">
             <div className="flex items-center gap-3">
-              <span className="bg-red-100 text-red-600 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+              <span className="bg-black text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">1</span>
               <p className="text-sm text-gray-700">Abra o Chrome e acesse o site</p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="bg-red-100 text-red-600 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+              <span className="bg-black text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">2</span>
               <p className="text-sm text-gray-700">Clique nos 3 pontinhos (⋮) no canto superior</p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="bg-red-100 text-red-600 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+              <span className="bg-black text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">3</span>
               <p className="text-sm text-gray-700">Selecione <strong>"Adicionar à tela inicial"</strong></p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="bg-red-100 text-red-600 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+              <span className="bg-black text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">4</span>
               <p className="text-sm text-gray-700">Clique em <strong>"Adicionar"</strong></p>
             </div>
           </div>
           
           <button
             onClick={() => setShow(false)}
-            className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition"
+            className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition"
           >
             Entendi, obrigado!
           </button>
