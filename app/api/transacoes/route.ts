@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
+export const dynamic = 'force-dynamic';
+
 const sql = neon(process.env.DATABASE_URL!);
 
-// GET - Buscar todas as transações
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -16,7 +17,6 @@ export async function GET(request: Request) {
     `;
     
     const transacoes = await query;
-    
     return NextResponse.json(transacoes);
   } catch (error) {
     console.error('Erro ao buscar transações:', error);
